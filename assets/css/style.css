@@ -159,6 +159,14 @@ button:hover {
   top: 60px;
 }
 
+label {
+  z-index: 1000;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
 .attr-select {
   font-size: 10pt;
   padding: 0 5px;
