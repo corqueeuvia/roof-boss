@@ -199,9 +199,11 @@ function doRoundActions(winner) {
       }
       break;
   }
-  lookForWinner();
   showCardsDistribution();
+  lookForWinner();
   p1turn = !p1turn;
+  displayP1cards();
+  displayP2cards();
   hideAndShowCards();
   return true;
 }
@@ -276,7 +278,6 @@ function hideAndShowCards() {
       cardP2.style.backgroundImage = `url(${cardBackURL})`;
       cardContentP2.style.visibility = 'hidden';
       cardImgP2.style.visibility = 'hidden';
-      displayP1cards();
     } else {
       cardP1.style.backgroundImage = `url(${cardBackURL})`;
       cardContentP1.style.visibility = 'hidden';
@@ -284,9 +285,10 @@ function hideAndShowCards() {
       cardP2.style.backgroundImage = `url(${cardFaceURL})`;
       cardContentP2.style.visibility = 'visible';
       cardImgP2.style.visibility = 'visible';
-      displayP2cards();
     }
-  }, 3000);
+  }, 1500);
+  displayP1cards();
+  displayP2cards();
   return true;
 }
 
@@ -334,10 +336,10 @@ function showCardsDistribution() {
 
 // set paw button animation behavior
 function showClaws() {
-  const soundClaw = new Audio('/./assets/audio/claw2.mp3');
+  const soundClaw = new Audio('./assets/audio/claw2.mp3');
 
   fightBtn.setAttribute('src', './assets/img/svg/claw.svg');
-  soundClaw.volume = 0.25;
+  soundClaw.volume = 1;
   soundClaw.play();
   setTimeout(() => {
     new Audio('/./assets/audio/hissing2.mp3').play();
@@ -458,17 +460,16 @@ function newGame() {
   checked = '';
   shuffle(deck);
   handCards(deck);
-  displayP1cards();
-  displayP2cards();
   hideAndShowCards();
   showCardsDistribution();
   return true;
 }
 
-// function tagAudioGameplay() {
-//   const audio = document.getElementById('vol-gameplay');
-//   audio.setAttribute('src', './assets/audio/saltimbancos.mp3');
-// }
+function tagAudioGameplay() {
+  const audio = document.getElementById('vol-gameplay');
+  audio.setAttribute('src', './assets/audio/saltimbancos.mp3');
+  return true;
+}
 
 //function to change labels style on click event
 function changeStyle(index) {
@@ -512,25 +513,26 @@ const labels = document.querySelectorAll('.attr-select');
 // =========================== characters ===========================
 //constructor(name, type, gender, size)
 
-deck.push(new Character('copelia', 0, 0, 1));
-deck.push(new Character('katrina', 0, 0, 0));
-deck.push(new Character('fabinho', 0, 1, 0));
-deck.push(new Character('juanito', 0, 1, 1));
-// deck.push(new Character('siam', 1, 1, 1));
+deck.push(new Character('samira', 1, 0, 1)); //mizinha
+deck.push(new Character('nurisky', 0, 0, 1)); //piju
+deck.push(new Character('fabim', 0, 1, 0));
+deck.push(new Character('carlito', 1, 1, 1));
+deck.push(new Character('keijo', 0, 1, 0)); //django
+deck.push(new Character('leonaldo', 1, 0, 0));
+// deck.push(new Character('copelia', 0, 0, 1));
+// deck.push(new Character('godofredo', 1, 1, 1));
 // deck.push(new Character('feminha', 0, 0, 0));
-// deck.push(new Character('piju', 0, 0, 1));
 // deck.push(new Character('massinho', 1, 1, 0));
+// deck.push(new Character('katrina', 0, 0, 0));
+// deck.push(new Character('juanito', 0, 1, 1));
+// deck.push(new Character('siam', 1, 1, 1));
 // deck.push(new Character('jamile', 0, 0, 0));
-// deck.push(new Character('valtinho', 1, 1, 1));
-// deck.push(new Character('django', 0, 1, 0));
 // deck.push(new Character('bartolomeu', 0, 1, 0));
 // deck.push(new Character('bissinho', 1, 1, 1));
 // deck.push(new Character('dora', 0, 0, 0));
 // deck.push(new Character('belezinha', 1, 0, 1));
-// deck.push(new Character('mizinha', 1, 0, 1));
 // deck.push(new Character('figaro', 1, 1, 0));
 // deck.push(new Character('duquesa', 1, 0, 1));
-// deck.push(new Character('izma', 1, 0, 0));
 // deck.push(new Character('dinah', 0, 0, 1));
 // deck.push(new Character('felicia', 1, 0, 0));
 // deck.push(new Character('alfa', 0, 0, 1));
@@ -542,7 +544,6 @@ deck.push(new Character('juanito', 0, 1, 1));
 // deck.push(new Character('baguera', 0, 1, 1));
 // deck.push(new Character('amanda', 1, 0, 1));
 // deck.push(new Character('judite', 1, 0, 0));
-// deck.push(new Character('godofredo', 1, 1, 1));
 // deck.push(new Character('minuc', 1, 0, 1));
 // deck.push(new Character('purguinha', 0, 0, 0));
 // deck.push(new Character('edgar', 1, 1, 1));
@@ -551,8 +552,8 @@ deck.push(new Character('juanito', 0, 1, 1));
 
 // ====================== execution ======================
 const soundtrack = new Audio('./assets/audio/saltimbancos2.mp3');
-  soundtrack.volume = 0.1;
-  soundtrack.play();
+soundtrack.volume = 0.1;
+soundtrack.play();
 fightBtn.addEventListener('click', showClaws);
 fightBtn.addEventListener('click', makeMove);
 labels.forEach((el, id) => {
